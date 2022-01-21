@@ -3,16 +3,16 @@
 This homework includes the second task of **REST API** for a simple warehouse management system. 
 
 ## Our Goals
-- ilk hafta geliştirdiğiniz api kullanılacaktır.
-- Rest standartlarına uygun olmalıdır.
-- solid prensiplerine uyulmalıdır.
-- Fake servisler geliştirilerek Dependency injection kullanılmalıdır.
-- api nizde kullaınılmak üzere extension geliştirin.
-- Projede swagger implementasyonu gerçekleştirilmelidir.
-- global loglama yapan bir middleware(sadece actiona girildi gibi çok basit düzeyde)
+- ilk hafta geliÅŸtirdiÄŸiniz api kullanÄ±lacaktÄ±r.
+- Rest standartlarÄ±na uygun olmalÄ±dÄ±r.
+- solid prensiplerine uyulmalÄ±dÄ±r.
+- Fake servisler geliÅŸtirilerek Dependency injection kullanÄ±lmalÄ±dÄ±r.
+- api nizde kullaÄ±nÄ±lmak Ã¼zere extension geliÅŸtirin.
+- Projede swagger implementasyonu gerÃ§ekleÅŸtirilmelidir.
+- global loglama yapan bir middleware(sadece actiona girildi gibi Ã§ok basit dÃ¼zeyde)
 **Bonus**
-- Fake bir kullanıcı giriş sistemi yapın ve custom bir attribute ile bunu kontrol edin.
-- global exception middleware i oluşturun.
+- Fake bir kullanÄ±cÄ± giriÅŸ sistemi yapÄ±n ve custom bir attribute ile bunu kontrol edin.
+- global exception middleware i oluÅŸturun.
 
 ## Key Points
 
