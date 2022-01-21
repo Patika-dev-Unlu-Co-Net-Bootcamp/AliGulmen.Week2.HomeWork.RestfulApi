@@ -12,7 +12,7 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 - global loglama yapan bir middleware(sadece actiona girildi gibi çok basit düzeyde)
 **Bonus**
 - Fake bir kullanýcý giriþ sistemi yapýn ve custom bir attribute ile bunu kontrol edin.
-- global exception middleware i oluþturun
+- global exception middleware i oluþturun.
 
 ## Key Points
 
