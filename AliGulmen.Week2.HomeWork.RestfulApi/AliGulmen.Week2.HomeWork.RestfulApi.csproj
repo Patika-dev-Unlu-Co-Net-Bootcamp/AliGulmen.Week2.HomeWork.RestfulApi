@@ -10,13 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Operations\ContainerOperations\CreateContainer\" />
-    <Folder Include="Operations\ContainerOperations\DeleteContainer\" />
-    <Folder Include="Operations\ContainerOperations\GetContainerDetail\" />
-    <Folder Include="Operations\ContainerOperations\GetContainers\" />
-    <Folder Include="Operations\ContainerOperations\GetContainerListByWeight\" />
-    <Folder Include="Operations\ContainerOperations\UpdateContainerLocation\" />
-    <Folder Include="Operations\ContainerOperations\UpdateContainer\" />
     <Folder Include="Operations\LocationOperations\CreateLocation\" />
     <Folder Include="Operations\LocationOperations\DeleteLocation\" />
     <Folder Include="Operations\LocationOperations\GetLocationDetail\" />
