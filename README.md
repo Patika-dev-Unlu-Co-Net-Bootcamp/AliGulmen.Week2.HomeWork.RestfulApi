@@ -6,11 +6,11 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 - **ilk hafta geliştirdiğiniz api kullanılacaktır.**
 - **Rest standartlarına uygun olmalıdır.**
 - solid prensiplerine uyulmalıdır.
-- Fake servisler geliştirilerek Dependency injection kullanılmalıdır.
-- api nizde kullaınılmak üzere extension geliştirin.
+- **Fake servisler geliştirilerek Dependency injection kullanılmalıdır.**
+- **api nizde kullaınılmak üzere extension geliştirin.**
 - **Projede swagger implementasyonu gerçekleştirilmelidir.**
 - **global loglama yapan bir middleware(sadece actiona girildi gibi çok basit düzeyde)**
-**Bonus**
+- **Bonus**
 - **Fake bir kullanıcı giriş sistemi yapın ve custom bir attribute ile bunu kontrol edin.**
 - **global exception middleware i oluşturun.**
 
@@ -19,6 +19,9 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 - Created a middleware for global logging
 - Created AccountController to check log-in with CustomPermission attribute (Role : admin , Password : 1234)
 - Global Exception middleware created.
+- Logger Service created to log actions with different methods (Used dependency injection)
+- StorageService created to assign pallets to locations and manage stocks with different methods (Used dependency injection)
+and used this service on creating new container
 
 ## External References 
 [Patika Net-Core Module](https://app.patika.dev/moduller/net-core)

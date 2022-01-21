@@ -48,7 +48,7 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.DbOperations
         * zz = horizontal cell (slot) */
 
         public static List<Location> LocationList = new List<Location>() {
-            new Location { locationId = 1, locationName = "010101", rotationId = 1 },
+            new Location { locationId = 1, locationName = "DockArea", rotationId = 1 },
             new Location { locationId = 2, locationName = "010102", rotationId = 2 },
             new Location { locationId = 3, locationName = "010103", rotationId = 3 },
             new Location { locationId = 4, locationName = "010201", rotationId = 1 },
@@ -59,7 +59,8 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.DbOperations
             new Location { locationId = 9, locationName = "020103", rotationId = 3 },
             new Location { locationId = 10, locationName = "020201", rotationId = 1 },
             new Location { locationId = 11, locationName = "020202", rotationId = 2 },
-            new Location { locationId = 12, locationName = "020203", rotationId = 3 }
+            new Location { locationId = 12, locationName = "020203", rotationId = 3 }, 
+           
         };
 
 
@@ -93,6 +94,23 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.DbOperations
             new Container { containerId = 6, productId = 6, uomId = 2,quantity = 240,locationId =8 ,weight = 240, creationDate=DateTime.Today.AddDays(-16) },
             new Container { containerId = 7, productId = 7, uomId = 2,quantity = 300,locationId =11 ,weight = 500, creationDate=DateTime.Today.AddDays(-16) },
             new Container { containerId = 8, productId = 8, uomId = 3,quantity = 140,locationId =9 ,weight = 250, creationDate=DateTime.Today.AddDays(-78) }
+
+        };
+
+
+        /*
+        * This list includes Stocks
+        */
+        public static List<Stock> StockList = new List<Stock>() {
+            new Stock { productId = 1, readyToShip = 12, stockOnRack = 145},
+            new Stock { productId = 2, readyToShip = 55, stockOnRack = 425},
+            new Stock { productId = 3, readyToShip = 47, stockOnRack = 123},
+            new Stock { productId = 4, readyToShip = 34, stockOnRack = 262},
+            new Stock { productId = 5, readyToShip = 23, stockOnRack = 190},
+            new Stock { productId = 6, readyToShip = 17, stockOnRack = 43},
+            new Stock { productId = 7, readyToShip = 0, stockOnRack = 0},
+            new Stock { productId = 8, readyToShip = 23, stockOnRack = 21}
+           
 
         };
 

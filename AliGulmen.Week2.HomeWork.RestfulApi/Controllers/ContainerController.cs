@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
+using AliGulmen.Week2.HomeWork.RestfulApi.Services.StorageService;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
@@ -13,10 +14,12 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
     {
 
         private static List<Container> ContainerList = DataGenerator.ContainerList;
+        private readonly IStorageService _storageService;
 
-        public ContainerController()
+
+        public ContainerController(IStorageService storageService)
         {
-           
+            _storageService = storageService;
         }
 
         /************************************* GET *********************************************/
@@ -73,10 +76,12 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
                 return BadRequest("No data entered!");
 
 
-            var container = ContainerList.SingleOrDefault(b => b.productId == newContainer.productId); //check if we already have that productId in our list
+            var container = ContainerList.SingleOrDefault(b => b.containerId == newContainer.containerId); //check if we already have that containerId in our list
             if (container is not null)
                 return BadRequest("You already have this container in your list!");
 
+            _storageService.AddToStock(newContainer); //depends on storage type
+            _storageService.Locate(newContainer);
             ContainerList.Add(newContainer);
             return Created("~api/containers", newContainer); //http 201 
         }
