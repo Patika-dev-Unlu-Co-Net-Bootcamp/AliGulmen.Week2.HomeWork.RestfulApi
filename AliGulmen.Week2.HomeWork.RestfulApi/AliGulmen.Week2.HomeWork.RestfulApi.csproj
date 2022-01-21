@@ -10,13 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Operations\LocationOperations\CreateLocation\" />
-    <Folder Include="Operations\LocationOperations\DeleteLocation\" />
-    <Folder Include="Operations\LocationOperations\GetLocationDetail\" />
-    <Folder Include="Operations\LocationOperations\GetLocations\" />
-    <Folder Include="Operations\LocationOperations\GetLocationListByRotation\" />
-    <Folder Include="Operations\LocationOperations\UpdateLocationRotation\" />
-    <Folder Include="Operations\LocationOperations\UpdateLocation\" />
     <Folder Include="Operations\ProductOperations\CreateProduct\" />
     <Folder Include="Operations\ProductOperations\DeleteProduct\" />
     <Folder Include="Operations\ProductOperations\GetProductDetail\" />
