@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
 using AliGulmen.Week2.HomeWork.RestfulApi.Services.StorageService;
+using AliGulmen.Week2.HomeWork.RestfulApi.Extensions;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
@@ -104,13 +105,16 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
             {
                 //if the value is not default, it means user already tried to update it.
                 //We can use input value. Otherwise, use recorded value and don't change it
-                ourRecord.containerId = newContainer.containerId != default ? newContainer.containerId : ourRecord.containerId;
-                ourRecord.productId = newContainer.productId != default ? newContainer.productId : ourRecord.productId;
-                ourRecord.uomId = newContainer.uomId != default ? newContainer.uomId : ourRecord.uomId;
-                ourRecord.quantity = newContainer.quantity != default ? newContainer.quantity : ourRecord.quantity;
-                ourRecord.locationId = newContainer.locationId != default ? newContainer.locationId : ourRecord.locationId;
-                ourRecord.weight = newContainer.weight != default ? newContainer.weight : ourRecord.weight;
-                ourRecord.creationDate = newContainer.creationDate != default ? newContainer.creationDate : ourRecord.creationDate;
+                ourRecord.ValidateWith(newContainer);
+
+                /*Now, we use custom extension and we don't need these comparasion anymore!*/
+                //ourRecord.containerId = newContainer.containerId != default ? newContainer.containerId : ourRecord.containerId;
+                //ourRecord.productId = newContainer.productId != default ? newContainer.productId : ourRecord.productId;
+                //ourRecord.uomId = newContainer.uomId != default ? newContainer.uomId : ourRecord.uomId;
+                //ourRecord.quantity = newContainer.quantity != default ? newContainer.quantity : ourRecord.quantity;
+                //ourRecord.locationId = newContainer.locationId != default ? newContainer.locationId : ourRecord.locationId;
+                //ourRecord.weight = newContainer.weight != default ? newContainer.weight : ourRecord.weight;
+                //ourRecord.creationDate = newContainer.creationDate != default ? newContainer.creationDate : ourRecord.creationDate;
                
             }
             else

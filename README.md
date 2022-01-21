@@ -3,16 +3,16 @@
 This homework includes the second task of **REST API** for a simple warehouse management system. 
 
 ## Our Goals
-- **ilk hafta geliştirdiğiniz api kullanılacaktır.**
-- **Rest standartlarına uygun olmalıdır.**
+- ilk hafta geliştirdiğiniz api kullanılacaktır.
+- Rest standartlarına uygun olmalıdır.
 - solid prensiplerine uyulmalıdır.
-- **Fake servisler geliştirilerek Dependency injection kullanılmalıdır.**
-- **api nizde kullaınılmak üzere extension geliştirin.**
-- **Projede swagger implementasyonu gerçekleştirilmelidir.**
-- **global loglama yapan bir middleware(sadece actiona girildi gibi çok basit düzeyde)**
+- Fake servisler geliştirilerek Dependency injection kullanılmalıdır.
+- api nizde kullaınılmak üzere extension geliştirin.
+- Projede swagger implementasyonu gerçekleştirilmelidir.
+- global loglama yapan bir middleware(sadece actiona girildi gibi çok basit düzeyde)
 - **Bonus**
-- **Fake bir kullanıcı giriş sistemi yapın ve custom bir attribute ile bunu kontrol edin.**
-- **global exception middleware i oluşturun.**
+- Fake bir kullanıcı giriş sistemi yapın ve custom bir attribute ile bunu kontrol edin.
+- global exception middleware i oluşturun.
 
 ## Key Points
 
@@ -22,6 +22,7 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 - Logger Service created to log actions with different methods (Used dependency injection)
 - StorageService created to assign pallets to locations and manage stocks with different methods (Used dependency injection)
 and used this service on creating new container
+- CustomContainerValidateExtension added and used for comparing old and new record before being updated
 
 ## External References 
 [Patika Net-Core Module](https://app.patika.dev/moduller/net-core)
