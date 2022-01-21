@@ -18,6 +18,7 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 
 - Created a middleware for global logging
 - Created AccountController to check log-in with CustomPermission attribute (Role : admin , Password : 1234)
+- Global Exception middleware created.
 
 ## External References 
 [Patika Net-Core Module](https://app.patika.dev/moduller/net-core)

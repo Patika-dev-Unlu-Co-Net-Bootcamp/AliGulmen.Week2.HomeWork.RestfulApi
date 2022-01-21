@@ -46,9 +46,10 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi
             }
 
 
+            app.UseCustomGlobalException();
 
             app.UseCustomLoggingMiddleware();
-
+          
             app.UseRouting();
 
             app.UseAuthorization();
