@@ -1,4 +1,5 @@
 using AliGulmen.Week2.HomeWork.RestfulApi.Middlewares;
+using AliGulmen.Week2.HomeWork.RestfulApi.Services.LoggerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,8 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AliGulmen.Week2.HomeWork.RestfulApi", Version = "v1" });
             });
+
+            services.AddSingleton<ILoggerService, TextFileLogger>(); // Log the actions to text file, might be changed to ConsoleLogger if necessary
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

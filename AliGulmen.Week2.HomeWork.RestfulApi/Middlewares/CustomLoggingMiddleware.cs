@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AliGulmen.Week2.HomeWork.RestfulApi.Services.LoggerService;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -13,29 +14,31 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Middlewares
 	{
 
 		private readonly RequestDelegate _next;
+		private readonly ILoggerService _loggerService;
 
-		public CustomLoggingMiddleware(RequestDelegate next)
-		{
-			_next = next;
-		}
+        public CustomLoggingMiddleware(RequestDelegate next, ILoggerService loggerService)
+        {
+            _next = next;
+            _loggerService = loggerService;
+        }
 
-		public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context)
 		{
 				//Request has the informations which comes from client. we will write the method and the name of path to console.
 
 				string message = "[Request] HTTP " + context.Request.Method + " - " + context.Request.Path;
-			 Console.WriteLine(message);
+			_loggerService.Log(message);
 
-				// Call the next delegate/middleware in the pipeline
-				await _next(context);
+			// Call the next delegate/middleware in the pipeline
+			await _next(context);
 
 				// Do tasks after middleware here, we can work with "Response" and log the status code we returned.
 				message = "[Request] HTTP "
 					+ context.Request.Method + " - "
 					+ context.Request.Path
 					+ " responded " + context.Response.StatusCode;
-			 Console.WriteLine(message);
-			
+			_loggerService.Log(message);
+
 
 		}
 

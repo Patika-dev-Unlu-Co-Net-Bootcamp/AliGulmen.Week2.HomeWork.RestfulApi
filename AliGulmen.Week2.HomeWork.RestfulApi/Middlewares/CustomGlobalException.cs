@@ -1,5 +1,6 @@
 ﻿namespace AliGulmen.Week2.HomeWork.RestfulApi.Middlewares
 {
+    using AliGulmen.Week2.HomeWork.RestfulApi.Services.LoggerService;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
     using System;
@@ -12,10 +13,12 @@
     {
 
         private readonly RequestDelegate _next;
+        private readonly ILoggerService _loggerService;
 
-        public CustomGlobalException(RequestDelegate next)
+        public CustomGlobalException(RequestDelegate next, ILoggerService loggerService)
         {
             _next = next;
+            _loggerService = loggerService;
         }
 
         public async Task Invoke(HttpContext context)
@@ -43,8 +46,7 @@
                 + " - "
                 + context.Response.StatusCode
                 + " Error Message " + ex.Message;
-            Console.WriteLine(message);
-
+            _loggerService.Log(message);
             //Use Newtonsoft to serialize ex.Message to json and return to client
             var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
             return context.Response.WriteAsync(result);
