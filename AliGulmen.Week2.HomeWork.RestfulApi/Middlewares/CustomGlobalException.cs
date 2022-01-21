@@ -1,6 +1,5 @@
 ﻿namespace AliGulmen.Week2.HomeWork.RestfulApi.Middlewares
 {
-    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
     using System;
@@ -53,17 +52,6 @@
 
 
 
-    }
-
-
-    public static class CustomGlobalExceptionExtension
-    {
-        //start.cs : app.UseCustoLoggingMiddleware()
-        public static IApplicationBuilder UseCustomGlobalException(this IApplicationBuilder builder)
-        {
-
-            return builder.UseMiddleware<CustomGlobalException>();
-        }
     }
 
 

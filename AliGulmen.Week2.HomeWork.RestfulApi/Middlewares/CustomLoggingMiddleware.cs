@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Middlewares
 {
 
-	// This middleware will be used for global logging and global exception for now.
-	// The logic might be changed in the future
-	public class CustomLoggingMiddleware
+    // This middleware will be used for global logging and global exception for now.
+    // The logic might be changed in the future
+    public class CustomLoggingMiddleware
 	{
 
 		private readonly RequestDelegate _next;
@@ -41,15 +40,6 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Middlewares
 		}
 
 
-	}
-	public static class CustomLoggingMiddlewareExtension
-	{
-		//start.cs : app.UseCustoLoggingMiddleware()
-		public static IApplicationBuilder UseCustomLoggingMiddleware(this IApplicationBuilder builder)
-		{
-
-			return builder.UseMiddleware<CustomLoggingMiddleware>();
-		}
 	}
 
 
