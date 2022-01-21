@@ -9,4 +9,44 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Operations\ContainerOperations\CreateContainer\" />
+    <Folder Include="Operations\ContainerOperations\DeleteContainer\" />
+    <Folder Include="Operations\ContainerOperations\GetContainerDetail\" />
+    <Folder Include="Operations\ContainerOperations\GetContainers\" />
+    <Folder Include="Operations\ContainerOperations\GetContainerListByWeight\" />
+    <Folder Include="Operations\ContainerOperations\UpdateContainerLocation\" />
+    <Folder Include="Operations\ContainerOperations\UpdateContainer\" />
+    <Folder Include="Operations\LocationOperations\CreateLocation\" />
+    <Folder Include="Operations\LocationOperations\DeleteLocation\" />
+    <Folder Include="Operations\LocationOperations\GetLocationDetail\" />
+    <Folder Include="Operations\LocationOperations\GetLocations\" />
+    <Folder Include="Operations\LocationOperations\GetLocationListByRotation\" />
+    <Folder Include="Operations\LocationOperations\UpdateLocationRotation\" />
+    <Folder Include="Operations\LocationOperations\UpdateLocation\" />
+    <Folder Include="Operations\ProductOperations\CreateProduct\" />
+    <Folder Include="Operations\ProductOperations\DeleteProduct\" />
+    <Folder Include="Operations\ProductOperations\GetProductDetail\" />
+    <Folder Include="Operations\ProductOperations\GetProducts\" />
+    <Folder Include="Operations\ProductOperations\GetProductContainers\" />
+    <Folder Include="Operations\ProductOperations\GetProductListByRotation\" />
+    <Folder Include="Operations\ProductOperations\UpdateProductAvailability\" />
+    <Folder Include="Operations\ProductOperations\UpdateProduct\" />
+    <Folder Include="Operations\RotationOperations\CreateRotation\" />
+    <Folder Include="Operations\RotationOperations\DeleteRotation\" />
+    <Folder Include="Operations\RotationOperations\GetRotationDetail\" />
+    <Folder Include="Operations\RotationOperations\GetRotations\" />
+    <Folder Include="Operations\RotationOperations\GetRotationLocations\" />
+    <Folder Include="Operations\RotationOperations\GetRotationProducts\" />
+    <Folder Include="Operations\RotationOperations\UpdateRotationCode\" />
+    <Folder Include="Operations\RotationOperations\UpdateRotation\" />
+    <Folder Include="Operations\StockOperations\GetStocks\" />
+    <Folder Include="Operations\UomOperations\CreateUom\" />
+    <Folder Include="Operations\UomOperations\DeleteUom\" />
+    <Folder Include="Operations\UomOperations\GetUoms\" />
+    <Folder Include="Operations\UomOperations\GetUomDetail\" />
+    <Folder Include="Operations\UomOperations\UpdateUomDescription\" />
+    <Folder Include="Operations\UomOperations\UpdateUom\" />
+  </ItemGroup>
+
 </Project>
