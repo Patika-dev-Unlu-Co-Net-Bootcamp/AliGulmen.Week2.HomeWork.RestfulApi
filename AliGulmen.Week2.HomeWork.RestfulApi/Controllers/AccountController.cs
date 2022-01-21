@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class AccountController : ControllerBase
     {
 
 
-        /************************************* DELETE *********************************************/
 
-        //DELETE api/locations/id
+
         [HttpGet]
         [CustomPermission("admin")]
+       
 
 
         public IActionResult IsLoggedIn(string username, string password)
