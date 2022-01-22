@@ -16,6 +16,9 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 
 ## Key Points
 
+- Although it has been used on Patika.Dev tutorials, AUTOMAPPER library HAS NOT included on project. This project only includes the features we learned during bootcamp.
+There are some other features as it; Fluent Validation, ViewModels, Automapper etc. These features will be implemented during next weeks.
+
 - Created a middleware for global logging. (Middlewares/CustomLoggingMiddleware.cs) There are two different informations that we are logging. 
 When the request comes from client, we log request method and request path. Then we wait until progress finish. At the end of progress, we log responded statuscode too.
 We create a dependency injection called ILoggerService. With this service, it is possible to log on console or on text file. Maybe another feature like sending sms, email etc.
@@ -125,8 +128,6 @@ public static void ValidateWith(this Container existingContainer, Container newC
 
 - Queries and Commands are moved to seperate classes.
 
-- Although it has been used on Patika.Dev tutorials, AUTOMAPPER library HAS NOT included on project. This project only includes the features we learned during bootcamp.
-There are some other features as it; Fluent Validation, ViewModels, Automapper etc. These features will be implemented during next weeks.
 
 ## External References
 
