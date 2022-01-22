@@ -20,7 +20,7 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Operations.UomOperations.GetUomDet
         {
             var uom = UomList.Where(u => u.uomId == UomId).SingleOrDefault();
             if (uom is null)
-                throw new InvalidOperationException("The book is not exist!");
+                throw new InvalidOperationException("The uom is not exist!");
 
 
             return uom;

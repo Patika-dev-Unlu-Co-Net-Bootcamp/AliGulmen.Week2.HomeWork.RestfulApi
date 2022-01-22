@@ -1,8 +1,5 @@
 ﻿using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
-using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.UomOperations.CreateUom;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.UomOperations.DeleteUom;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.UomOperations.GetUoms;
@@ -12,15 +9,14 @@ using AliGulmen.Week2.HomeWork.RestfulApi.Operations.UomOperations.UpdateUomDesc
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
-	[Route("api/[controller]s")]
+    [Route("api/[controller]s")]
 	[ApiController]
 	public class UomController : ControllerBase
 	{
 
 		/************************************* GET *********************************************/
 
-		//Get the list of uoms
-		private static List<Uom> UomList = DataGenerator.UomList;
+		
 
 		public UomController()
 		{

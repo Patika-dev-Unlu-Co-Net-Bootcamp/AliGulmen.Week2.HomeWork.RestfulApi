@@ -23,6 +23,7 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 - StorageService created to assign pallets to locations and manage stocks with different methods (Used dependency injection)
 and used this service on creating new container
 - CustomContainerValidateExtension added and used for comparing old and new record before being updated
+- Queries and Commands are moved to seperate classes.
 
 ## External References 
 [Patika Net-Core Module](https://app.patika.dev/moduller/net-core)

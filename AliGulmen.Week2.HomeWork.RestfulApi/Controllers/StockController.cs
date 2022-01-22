@@ -1,9 +1,5 @@
-﻿using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
-using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
-using AliGulmen.Week2.HomeWork.RestfulApi.Operations.StockOperations.GetStocks;
-using Microsoft.AspNetCore.Http;
+﻿using AliGulmen.Week2.HomeWork.RestfulApi.Operations.StockOperations.GetStocks;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
@@ -11,8 +7,7 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
-        private static List<Stock> StockList = DataGenerator.StockList;
-
+      
         //GET api/stocks
         [HttpGet]
         public IActionResult GetStocks()

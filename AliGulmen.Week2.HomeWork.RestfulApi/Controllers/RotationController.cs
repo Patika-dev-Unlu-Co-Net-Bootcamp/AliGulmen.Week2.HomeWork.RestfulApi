@@ -1,20 +1,22 @@
-﻿using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
-using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
+﻿using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.CreateRotation;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.DeleteRotation;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.GetRotationDetail;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.GetRotationLocations;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.GetRotationProducts;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.GetRotations;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.UpdateRotation;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.RotationOperations.UpdateRotationCode;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
-	[Route("api/[controller]s")]
+    [Route("api/[controller]s")]
 	[ApiController]
 	public class RotationController : ControllerBase
 	{
 
-		private static List<Rotation> RotationList = DataGenerator.RotationList;
-		private static List<Location> LocationList = DataGenerator.LocationList;
-		private static List<Product> ProductList = DataGenerator.ProductList;
-
+		
 		public RotationController()
 		{ }
 
@@ -25,10 +27,9 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpGet]
 		public IActionResult GetRotations()
 		{
-			if (RotationList.Count == 0)
-				return NotFound("There is not any record in the list!");
-
-			return Ok(RotationList);
+			var query = new GetRotationsQuery();
+			var result = query.Handle();
+			return Ok(result);
 		}
 
 
@@ -37,11 +38,11 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpGet("{id}")]
 		public IActionResult GetRotationById(int id)
 		{
-			var rotation = new Rotation();
-			rotation = RotationList.Where(b => b.rotationId == id).SingleOrDefault();
-			if (rotation == null)
-				return NotFound("This rotation is not exists!");
-			return Ok(rotation);
+			var query = new GetRotationDetailQuery();
+			query.RotationId = id;
+
+			var result = query.Handle();
+			return Ok(result);
 		}
 
 
@@ -50,12 +51,11 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpGet("{id}/Locations")]
 		public IActionResult GetLocationsByRotation(int id)
 		{
-			var locations = LocationList.Where(b => b.rotationId == id).ToList();
-			if (locations.Count == 0)
-				return NotFound("There is no location defined with this rotation!");
+			var query = new GetRotationLocationsQuery();
+			query.RotationId = id;
 
-
-			return Ok(locations);
+			var result = query.Handle();
+			return Ok(result);
 		}
 
 
@@ -64,12 +64,11 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpGet("{id}/Products")]
 		public IActionResult GetProductsByRotation(int id)
 		{
-			var products = ProductList.Where(b => b.rotationId == id).ToList();
-			if (products.Count == 0)
-				return NotFound("There is no product defined with this rotation!");
+			var query = new GetRotationProductsQuery();
+			query.RotationId = id;
 
-
-			return Ok(products); //http 200
+			var result = query.Handle();
+			return Ok(result);
 		}
 
 
@@ -82,18 +81,10 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpPost]
 		public IActionResult CreateRotation([FromBody] Rotation newRotation)
 		{
-			if (newRotation is null) //if the user not send any data, we will return bad request
-				return BadRequest("No data entered!");
+			var command = new CreateRotationCommand();
+			command.Model = newRotation;
+			command.Handle();
 
-
-			//check if we already have this rotation in our list
-			var rotation = RotationList.SingleOrDefault(b => b.rotationCode == newRotation.rotationCode); //check if we already have that rotationCode in our list
-
-			
-			if (rotation is not null)
-				return BadRequest("You already have this rotation in your list!");
-
-			RotationList.Add(newRotation);
 			return Created("~api/rotations", newRotation); //http 201
 		}
 
@@ -105,27 +96,16 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		//Update all informations
 		//PUT api/rotations/id
 		[HttpPut("{id}")]
-		public IActionResult Update(Rotation newRotation)
+		public IActionResult Update(int id,Rotation newRotation)
 		{
 
-			if (newRotation is null)
-				return BadRequest("No data entered!");
+			var command = new UpdateRotationCommand();
+			command.RotationId = id;
+			command.Model = newRotation;
 
-			var ourRecord = RotationList.SingleOrDefault(g => g.rotationId == newRotation.rotationId);
-			if (ourRecord != null)
-			{
-				//if the value is not default, it means user already tried to update it.
-				//We can use input value. Otherwise, use recorded value and don't change it
-				ourRecord.rotationId = newRotation.rotationId != default ? newRotation.rotationId : ourRecord.rotationId;
-				ourRecord.rotationCode = newRotation.rotationCode != default ? newRotation.rotationCode : ourRecord.rotationCode;
-				
-			}
-			else
-			{
-				return NotFound("There is no record to update");
-			}
 
-			return Ok(RotationList); //http 200 
+			command.Handle();
+			return NoContent(); //http 204 
 		}
 
 
@@ -136,11 +116,10 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 
 		public IActionResult Delete(int id)
 		{
-			var ourRecord = RotationList.SingleOrDefault(b => b.rotationId == id); //is it exist?
-			if (ourRecord is null)
-				return BadRequest("There is no record to delete!");
+			var command = new DeleteRotationCommand();
+			command.RotationId = id;
+			command.Handle();
 
-			RotationList.Remove(ourRecord);
 			return NoContent(); //http 204 
 		}
 
@@ -153,15 +132,12 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 		[HttpPatch("{id}")]
 		public IActionResult UpdateCode(int id, string code)
 		{
-			var ourRecord = RotationList.SingleOrDefault(u => u.rotationId == id);
-			if (ourRecord != null)
-			{
-				RotationList.SingleOrDefault(g => g.rotationId == id).rotationCode = code;
-			}
-			else
-			{
-				return NotFound("There is no record to update");
-			}
+			var command = new UpdateRotationCodeCommand();
+			command.RotationId = id;
+			command.Code = code;
+
+
+			command.Handle();
 			return NoContent(); //http 204
 
 		}
