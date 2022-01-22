@@ -5,6 +5,13 @@ using System.Linq;
 using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
 using AliGulmen.Week2.HomeWork.RestfulApi.Services.StorageService;
 using AliGulmen.Week2.HomeWork.RestfulApi.Extensions;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.GetContainers;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.GetContainerDetail;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.CreateContainer;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.UpdateContainer;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.DeleteContainer;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.UpdateContainerLocation;
+using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ContainerOperations.GetContainerListByWeight;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
@@ -14,8 +21,7 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 
     {
 
-        private static List<Container> ContainerList = DataGenerator.ContainerList;
-        private readonly IStorageService _storageService;
+         private readonly IStorageService _storageService;
 
 
         public ContainerController(IStorageService storageService)
@@ -29,20 +35,20 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
         [HttpGet]
         public IActionResult GetContainers()
         {
-            if (ContainerList.Count == 0)
-                return NotFound("There is not any record in the list!");
-
-            return Ok(ContainerList);
+            var query = new GetContainersQuery();
+            var result = query.Handle();
+            return Ok(result);
         }
 
         //GET api/containers/1
         [HttpGet("{id}")]
         public IActionResult GetContainerById(int id)
         {
-            var container = ContainerList.Where(b => b.containerId == id).SingleOrDefault();
-            if (container == null)
-                return NotFound("This container is not exists!");
-            return Ok(container);
+            var query = new GetContainerDetailQuery();
+            query.ContainerId = id;
+
+            var result = query.Handle();
+            return Ok(result);
         }
 
 
@@ -52,14 +58,11 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
         public IActionResult GetContainersByMaxWeight([FromQuery] int maxWeight)
         {
 
-            var containers = ContainerList
-                                    .Where(b => b.weight <= maxWeight)
-                                    .OrderBy(b => b.weight)
-                                    .ToList();
-            if (containers.Count == 0)
-                return NotFound("There is no container lighter than the value entered!");
+            var query = new GetContainerListQuery();
+            query.MaxWeight = maxWeight;
 
-            return Ok(containers); //http 200
+            var result = query.Handle();
+            return Ok(result);
         }
 
 
@@ -73,17 +76,10 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
         [HttpPost]
         public IActionResult CreateContainer([FromBody] Container newContainer)
         {
-            if (newContainer is null) //if the user not send any data, we will return bad request
-                return BadRequest("No data entered!");
+            var command = new CreateContainerCommand();
+            command.Model = newContainer;
+            command.Handle();
 
-
-            var container = ContainerList.SingleOrDefault(b => b.containerId == newContainer.containerId); //check if we already have that containerId in our list
-            if (container is not null)
-                return BadRequest("You already have this container in your list!");
-
-            _storageService.AddToStock(newContainer); //depends on storage type
-            _storageService.Locate(newContainer);
-            ContainerList.Add(newContainer);
             return Created("~api/containers", newContainer); //http 201 
         }
 
@@ -95,33 +91,16 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
         //Update all informations
         //PUT api/containers/id
         [HttpPut("{id}")]
-        public IActionResult Update(Container newContainer)
+        public IActionResult Update(int id,Container newContainer)
         {
-            if (newContainer is null)
-                return BadRequest("No data entered!");
+            var command = new UpdateContainerCommand();
+            command.ContainerId = id;
+            command.Model = newContainer;
 
-            var ourRecord = ContainerList.SingleOrDefault(g => g.containerId == newContainer.containerId);
-            if (ourRecord != null)
-            {
-                //if the value is not default, it means user already tried to update it.
-                //We can use input value. Otherwise, use recorded value and don't change it
-                ourRecord.ValidateWith(newContainer);
 
-                /*Now, we use custom extension and we don't need these comparasion anymore!*/
-                //ourRecord.containerId = newContainer.containerId != default ? newContainer.containerId : ourRecord.containerId;
-                //ourRecord.productId = newContainer.productId != default ? newContainer.productId : ourRecord.productId;
-                //ourRecord.uomId = newContainer.uomId != default ? newContainer.uomId : ourRecord.uomId;
-                //ourRecord.quantity = newContainer.quantity != default ? newContainer.quantity : ourRecord.quantity;
-                //ourRecord.locationId = newContainer.locationId != default ? newContainer.locationId : ourRecord.locationId;
-                //ourRecord.weight = newContainer.weight != default ? newContainer.weight : ourRecord.weight;
-                //ourRecord.creationDate = newContainer.creationDate != default ? newContainer.creationDate : ourRecord.creationDate;
-               
-            }
-            else
-            {
-                return NotFound("There is no record to update");
-            }
-            return Ok(ContainerList); //http 200 
+            command.Handle();
+
+            return NoContent(); //http 204 
 
         }
 
@@ -133,11 +112,10 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 
         public IActionResult Delete(int id)
         {
-            var ourRecord = ContainerList.SingleOrDefault(b => b.containerId == id); //is it exist?
-            if (ourRecord is null)
-                return BadRequest("There is no record to delete!");
+            var command = new DeleteContainerCommand();
+            command.ContainerId = id;
+            command.Handle();
 
-            ContainerList.Remove(ourRecord);
             return NoContent(); //http 204
         }
 
@@ -147,18 +125,15 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 
 
         [HttpPatch("{id}")]
-        public IActionResult UpdateAvailability(int id, int locationId)
+        public IActionResult UpdateLocation(int id, int locationId)
         {
-            var ourRecord = ContainerList.SingleOrDefault(u => u.containerId == id);
-            if (ourRecord != null)
-            {
+            var command = new UpdateContainerLocationCommand();
+            command.ContainerId = id;
+            command.LocationId = locationId;
 
-                ContainerList.SingleOrDefault(g => g.containerId == id).locationId = locationId;
-            }
-            else
-            {
-                return NotFound("There is no record to update");
-            }
+
+            command.Handle();
+
             return NoContent(); //http 204
 
 
