@@ -23,7 +23,7 @@ namespace AliGulmen.Week2.HomeWork.RestfulApi.Services.StorageService
         public void Locate(Container container)
         {
             //The container will be relocated to first empty place on rack. let's assume that 2. location
-            container.locationId = 232;
+            container.locationId = 2;
         }
     }
 }

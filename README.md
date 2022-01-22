@@ -16,14 +16,117 @@ This homework includes the second task of **REST API** for a simple warehouse ma
 
 ## Key Points
 
-- Created a middleware for global logging
-- Created AccountController to check log-in with CustomPermission attribute (Role : admin , Password : 1234)
-- Global Exception middleware created.
-- Logger Service created to log actions with different methods (Used dependency injection)
+- Created a middleware for global logging. (Middlewares/CustomLoggingMiddleware.cs) There are two different informations that we are logging. 
+When the request comes from client, we log request method and request path. Then we wait until progress finish. At the end of progress, we log responded statuscode too.
+We create a dependency injection called ILoggerService. With this service, it is possible to log on console or on text file. Maybe another feature like sending sms, email etc.
+
+
+```c
+         public async Task Invoke(HttpContext context)
+		{
+
+			string message = "[Request] HTTP " + context.Request.Method + " - " + context.Request.Path;
+			_loggerService.Log(message);
+
+			// Call the next delegate/middleware in the pipeline
+			await _next(context);
+
+				message = "[Request] HTTP "
+					+ context.Request.Method + " - "
+					+ context.Request.Path
+					+ " responded " + context.Response.StatusCode;
+			_loggerService.Log(message);
+
+
+		}
+
+```
+- Created AccountController to check log-in with CustomPermission attribute (Role : admin , Password : 1234) For now, we check values with hardcoded password. 
+ ```c      
+        [HttpGet]
+        [CustomPermission("admin")]
+        public IActionResult IsLoggedIn(string username, string password)
+        {
+           ...
+
+            if(permissions.Any(p => p == username) && password == pass)
+            return Ok();
+            return Unauthorized();
+        }
+```
+- Global Exception middleware created. Although it is possible to use it with LoggingMiddleware, created seperate middleware to catch exceptions.
+If there is an exception during progress, it is going to return status codes we defined. 
+
+ ```c      
+        private Task HandleException(HttpContext context, Exception ex)
+        {
+           ...
+
+    }
+```
+
+- Logger Service created to log actions with different methods (Used dependency injection) This service is created and used instead of console.writeline . 
+It makes possible to extend application easily. The default service is logging the actions to text file.
+```c
+  public interface ILoggerService
+        {
+            public void Log(string message);
+        }
+```
+
+```c
+ public class TextFileLogger : ILoggerService
+    {
+        public void Log(string message)
+        {
+           ...
+
+        }
+    }
+```
 - StorageService created to assign pallets to locations and manage stocks with different methods (Used dependency injection)
-and used this service on creating new container
+There are two type of warehouse we designed. First one has "Warehouse Storage" Which has racks and places to store containers. 
+And the second one is "CrossDocking Storage" which all containers directly goes for shipping. With this service, we decide the location of containers and stock counts.
+Warehouse Type never changes, so we define this service singleton.
+
+```c
+ public interface IStorageService
+    {
+            public void Locate(Container container);
+
+        public void AddToStock(Container container);
+    }
+```
+
+```c
+     public class WarehouseStorage : IStorageService
+    {
+        private static List<Stock> StockList = DataGenerator.StockList;
+        public void AddToStock(Container container)
+        {
+           ...
+        }
+
+        public void Locate(Container container)
+        {
+           ...
+        }
+    }
+```
+
 - CustomContainerValidateExtension added and used for comparing old and new record before being updated
+
+```c
+public static void ValidateWith(this Container existingContainer, Container newContainer)
+            {
+                ...
+            }
+            ```
+
 - Queries and Commands are moved to seperate classes.
+
+- Although it has been used on Patika.Dev tutorials, AUTOMAPPER library HAS NOT included on project. This project only includes the features we learned during bootcamp.
+There are some other features as it; Fluent Validation, ViewModels, Automapper etc. These features will be implemented during next weeks.
 
 ## External References 
 [Patika Net-Core Module](https://app.patika.dev/moduller/net-core)
