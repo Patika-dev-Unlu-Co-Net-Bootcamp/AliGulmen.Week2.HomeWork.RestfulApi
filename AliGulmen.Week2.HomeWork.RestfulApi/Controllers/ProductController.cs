@@ -1,5 +1,4 @@
-﻿using AliGulmen.Week2.HomeWork.RestfulApi.DbOperations;
-using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
+﻿using AliGulmen.Week2.HomeWork.RestfulApi.Entities;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.CreateProduct;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.DeleteProduct;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.GetProductContainers;
@@ -9,8 +8,6 @@ using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.GetProduc
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.UpdateProduct;
 using AliGulmen.Week2.HomeWork.RestfulApi.Operations.ProductOperations.UpdateProductAvailability;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AliGulmen.Week2.HomeWork.RestfulApi.Controllers
 {
