@@ -40,7 +40,19 @@
         private Task HandleException(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; //500 if unexpected
+
+            switch (ex)
+            {
+                case InvalidOperationException:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest; //400 if unexpected
+                    break;
+                default:
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; //500 if unexpected
+                    break;
+            }
+
+
+           
             string message = "[ERROR] HTTP "
                 + context.Request.Method
                 + " - "
